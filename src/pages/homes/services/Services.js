@@ -12,11 +12,11 @@ const Services = () => {
         if (data.success) {
           setServices(data.data);
         } else {
-          // toast.error(data.error);
+          toast.error(data.error);
         }
       })
       .catch((error) => {
-        //  toast.error(error.message)
+        toast.error(error.message);
       });
   }, []);
   return (
@@ -30,7 +30,7 @@ const Services = () => {
           believable.
         </p>
       </div>
-      <div className="grid gap-5 grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
+      <div className="grid gap-5 grid-cols-1 md:grid-cols-3  lg:grid-cols-3">
         {services.map((service) => (
           <ServiceCard key={service._id} service={service}></ServiceCard>
         ))}
