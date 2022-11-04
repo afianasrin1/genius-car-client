@@ -28,27 +28,47 @@ const Checkout = () => {
       phone,
       message,
     };
-
     fetch("http://localhost:5000/orders", {
       method: "POST",
       headers: {
-        " content-type": "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify(order),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        // if (data.success) {
-        //   toast.success(data.message);
-        //   form.reset();
-        // } else {
-        //   toast.error(data.error);
-        // }
+        if (data.success) {
+          toast.success(data.message);
+          form.reset();
+        } else {
+          toast.error(data.error);
+        }
       })
-      .catch((err) => {
-        toast.error(err.message);
+      .catch((error) => {
+        toast.error(error.message);
       });
+
+    // fetch("http://localhost:5000/orders", {
+    //   method: "POST",
+    //   headers: {
+    //     " content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(order),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.success) {
+    //       toast.success(data.message);
+    //       form.reset();
+    //     } else {
+    //       toast.error(data.error);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   return (
