@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { AuthContext } from "../../context/AuthProvider";
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut().then().catch();
+  };
   const menuItems = (
     <>
       <li className="font-semibold text-orange-900  hover:text-orange-300 h-20 ">
@@ -13,6 +16,9 @@ const Header = () => {
         <>
           <li className="font-semibold text-orange-900  hover:text-orange-300 h-20 ">
             <Link to="/orders">orders</Link>
+            <button onClick={handleLogOut} className="btn-ghost">
+              Sign Out
+            </button>
           </li>
         </>
       ) : (

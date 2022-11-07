@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 
 const Checkout = () => {
   const { _id, title, price } = useLoaderData().data;
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   const handlePlaceholder = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -28,10 +33,11 @@ const Checkout = () => {
       phone,
       message,
     };
-    fetch("http://localhost:5000/orders", {
+    fetch("https://genius-car-server-ten-iota.vercel.app/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("car-token")}`,
       },
       body: JSON.stringify(order),
     })
@@ -40,6 +46,7 @@ const Checkout = () => {
         console.log(data);
         if (data.success) {
           toast.success(data.message);
+          navigate(from, { replace: true });
           form.reset();
         } else {
           toast.error(data.error);
@@ -49,7 +56,7 @@ const Checkout = () => {
         toast.error(error.message);
       });
 
-    // fetch("http://localhost:5000/orders", {
+    // fetch("https://genius-car-server-ten-iota.vercel.app/orders", {
     //   method: "POST",
     //   headers: {
     //     " content-type": "application/json",

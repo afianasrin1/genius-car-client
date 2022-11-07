@@ -6,6 +6,7 @@ import Home from "../../pages/homes/Home/Home";
 import Login from "../../pages/Login/Login";
 import Orders from "../../pages/orders/Orders";
 import SignUp from "../../pages/signUp/SignUp";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -26,13 +27,23 @@ const routes = createBrowserRouter([
       },
       {
         path: "/checkout/:id",
-        element: <Checkout />,
+        element: (
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(
+            `https://genius-car-server-ten-iota.vercel.app/services/${params.id}`
+          ),
       },
       {
         path: "/orders",
-        element: <Orders />,
+        element: (
+          <PrivateRoute>
+            <Orders />
+          </PrivateRoute>
+        ),
       },
     ],
   },

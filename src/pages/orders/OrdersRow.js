@@ -16,7 +16,7 @@ const OrdersRow = ({ order, handleDelete, handleStatusUpdated }) => {
   const [orderService, setOrderService] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${service}`)
+    fetch(`https://genius-car-server-ten-iota.vercel.app/services/${service}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -31,7 +31,7 @@ const OrdersRow = ({ order, handleDelete, handleStatusUpdated }) => {
   }, [service]);
   //eita orders e nibo karon  parents holo order r props kore pathebo event handler ke
   //   const handleDelete = (id) => {
-  //     fetch(`http://localhost:5000/orders/${id}`, {
+  //     fetch(`https://genius-car-server-ten-iota.vercel.app/orders/${id}`, {
   //       method: "DELETE",
   //     })
   //       .then((res) => res.json())

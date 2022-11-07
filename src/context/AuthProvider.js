@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -21,6 +22,10 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
+  const logOut = () => {
+    localStorage.removeItem("car-token");
+    return signOut(auth);
+  };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log(currentUser);
@@ -32,7 +37,15 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const authInfo = { signIn, createUser, user, setUser, loading, setLoading };
+  const authInfo = {
+    logOut,
+    signIn,
+    createUser,
+    user,
+    setUser,
+    loading,
+    setLoading,
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
